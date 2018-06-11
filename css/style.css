@@ -67,6 +67,12 @@ a, a:hover {text-decoration: none;}
 .logo {
 	float: left;
 }
+.logo img {
+	min-height: 28px;
+	min-width: 79px;
+	height: 100%;
+	width: 100%;
+}
 
 .nav {
 	float: right;
