@@ -121,6 +121,7 @@ a, a:hover {text-decoration: none;}
 	font: bold 24px/24px Arial, sans-serif;
 	background: #EFD136;
 	cursor: pointer;
+	border: none; 
 
 	-webkit-border-radius: 4px;
 	   -moz-border-radius: 4px;
@@ -310,6 +311,22 @@ h5.title {
 	        border-radius: 50%;
 }
 
+.social a.black {
+	background-color: #222;
+}
+.social a.ic-tw.black {
+	background-position: 0 -40px;
+}
+.social a.ic-fb.black {
+	background-position: -40px -40px;
+}
+.social a.ic-bm.black {
+	background-position: -80px -40px;
+}
+.social a.ic-gl.black {
+	background-position: -120px -40px;
+}
+
 .social a.ic-tw {
 	background-position: 0 0; 
 }
@@ -358,3 +375,76 @@ h5.title {
 
 #brand a:last-child {margin-right: 0}
 #brand img {vertical-align: middle;}
+
+#contact {
+	text-align: center;
+	background: #222 url(../img/maps-bg.png) no-repeat right bottom;
+}
+
+#contact h2.title {color: #fff;}
+
+#massage {
+	padding-top: 70px;
+}
+
+#massage .left,
+#massage .right {
+	width: 48%;
+}
+
+#massage input[type="text"],
+#massage textarea {
+	width: 100%;
+	padding: 15px 20px;
+	margin-bottom: 30px;
+	font: bold 14px/14px Arial, sans-serif;
+	color: #222;
+	box-shadow: none;
+	background: #fff;
+	-webkit-border-radius: 4px;
+	   -moz-border-radius: 4px;
+	     -o-border-radius: 4px;
+	        border-radius: 4px;
+}
+
+#massage input[type="text"] {
+	height: 50px;
+	border: 1px solid #ccc;
+}
+
+#massage textarea {
+	height: 210px;
+	border: none;
+	resize: none;
+}
+
+::-webkit-input-placeholder {
+	text-transform: uppercase;
+	font: bold 14px/14px Arial, sans-serif;
+	color: #bbb;
+}
+::-moz-placeholder {
+	text-transform: uppercase;
+	font: bold 14px/14px Arial, sans-serif;
+	color: #bbb;
+}
+::-o-placeholder {
+	text-transform: uppercase;
+	font: bold 14px/14px Arial, sans-serif;
+	color: #bbb;
+}
+
+#footer {
+	padding: 25px;
+}
+
+#footer p {
+	margin-top: 15px; 
+	font: 14px/14px Arial, sans-serif;
+	color: #555;
+}
+
+#footer .social {
+	margin-top: 0;
+	margin-left: 365px;
+}
