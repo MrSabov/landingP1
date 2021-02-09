@@ -12,11 +12,13 @@ summary, time, mark, audio, video {
 	vertical-align: baseline;
 }
 
-html {height: 100%;}
+html,
 body {
 	height: 100%;
 	font: 14px/18px 'Times New Roman', Times, sans-serif;
-	background-color: #FFF;
+	color: orange;
+	background-color: #222;
+	overflow: hidden;
 }
 
 ol, ul {list-style: none;}
@@ -53,6 +55,12 @@ a, a:hover {text-decoration: none;}
 .container {
 	width: 940px;
 	margin: 0 auto;
+}
+
+#wrapper {
+	height: 100%;
+	overflow: auto;
+	position: relative;
 }
 
 #header {
