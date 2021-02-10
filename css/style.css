@@ -16,9 +16,8 @@ html,
 body {
 	height: 100%;
 	font: 14px/18px 'Times New Roman', Times, sans-serif;
-	color: black;
-	background-color: #FFFFFF;
-	/*overflow: hidden;*/
+	background-color: #222222;
+	overflow: hidden;
 }
 
 ol, ul {list-style: none;}
@@ -57,11 +56,11 @@ a, a:hover {text-decoration: none;}
 	margin: 0 auto;
 }
 
-/*#wrapper {*/
-/*	height: 100%;*/
-/*	overflow: auto;*/
-/*	position: relative;*/
-/*}*/
+#wrapper {
+	height: 100%;
+	overflow: auto;
+	position: relative;
+}
 
 #header {
 	position: absolute;
@@ -147,6 +146,7 @@ a, a:hover {text-decoration: none;}
 
 #services {
 	text-align: center;
+	background-color: snow;
 }
 .services-wrap,
 .portfolio-wrap,
@@ -226,7 +226,10 @@ h5.title {
 	margin-bottom: 4px;
 }
 
-#about {text-align: center;}
+#about {
+	text-align: center;
+	background-color: snow;
+}
 .about-text {
 	width: 35%;
 }
@@ -374,6 +377,7 @@ h5.title {
 #brand {
 	padding: 60px 0;
 	text-align: center;
+	background-color: snow;
 }
 
 #brand a {
@@ -438,7 +442,8 @@ h5.title {
 }
 
 #footer {
-	padding: 25px 25px 40px;
+	padding: 25px 35px 60px;
+	background-color: snow;
 }
 
 #footer p {
@@ -449,5 +454,4 @@ h5.title {
 
 #footer .social {
 	margin-top: 0;
-	margin-left: 365px;
 }
