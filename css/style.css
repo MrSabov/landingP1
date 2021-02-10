@@ -16,8 +16,8 @@ html,
 body {
 	height: 100%;
 	font: 14px/18px 'Times New Roman', Times, sans-serif;
-	color: orange;
-	background-color: #222;
+	color: black;
+	background-color: #FFFFFF;
 	overflow: hidden;
 }
 
@@ -436,14 +436,9 @@ h5.title {
 	font: bold 14px/14px Arial, sans-serif;
 	color: #bbb;
 }
-::-o-placeholder {
-	text-transform: uppercase;
-	font: bold 14px/14px Arial, sans-serif;
-	color: #bbb;
-}
 
 #footer {
-	padding: 25px;
+	padding: 25px 25px 40px;
 }
 
 #footer p {
