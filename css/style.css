@@ -17,7 +17,7 @@ html {
 	height: 100%;
 	font: 14px/18px 'Times New Roman', Times, sans-serif;
 	background-color: #222222;
-	overflow: unset;
+	overflow: hidden;
 }
 
 ol, ul {list-style: none;}
@@ -58,8 +58,10 @@ a, a:hover {text-decoration: none;}
 
 #wrapper {
 	position: relative;
-	background-color: #d95232;
+	height: 100vh;
+	min-height: 100%;
 	overflow: auto;
+	background-color: #d95232;
 }
 
 #header {
