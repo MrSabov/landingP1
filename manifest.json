@@ -2,7 +2,7 @@
   "name": "Test - PWA description!",
   "short_name": "Test PWA",
   "scope": "./",
-  "start_url": "./",
+  "start_url": "https://mrsabov.github.io/landingP1/",
   "display": "standalone",
   "theme_color": "#1C384F",
   "background_color": "#1C384F",
