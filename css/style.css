@@ -12,15 +12,17 @@ summary, time, mark, audio, video {
 	vertical-align: baseline;
 }
 
+
 html {
-	overflow: hidden;
-	background-color: #222222;
+	background: red;
+	overflow: auto;
 }
 
 body {
 	height: 100%;
 	font: 14px/18px 'Times New Roman', Times, sans-serif;
-	background-color: #FFFFFF;
+	background-color: #222222;
+	overflow: hidden;
 }
 
 ol, ul {list-style: none;}
