@@ -18,7 +18,7 @@ body {
 	font: 14px/18px 'Times New Roman', Times, sans-serif;
 	color: black;
 	background-color: #FFFFFF;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 
 ol, ul {list-style: none;}
@@ -57,11 +57,11 @@ a, a:hover {text-decoration: none;}
 	margin: 0 auto;
 }
 
-#wrapper {
-	height: 100%;
-	overflow: auto;
-	position: relative;
-}
+/*#wrapper {*/
+/*	height: 100%;*/
+/*	overflow: auto;*/
+/*	position: relative;*/
+/*}*/
 
 #header {
 	position: absolute;
