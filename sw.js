@@ -1,4 +1,5 @@
-const OFFLINE_CACHE = 'offline-fallback-v0';
+const OFFLINE_CACHE = 'offline-cache-v0';
+const DYNAMIC_CACHE = 'dynamic-cache-v0';
 
 const staticAssets = [
     './',
@@ -16,36 +17,34 @@ self.addEventListener('install', async event => {
 });
 
 self.addEventListener('activate', async event => {
+    const cachesKeys = await caches.keys();
+    const checkKeys = cachesKeys.map(async key => {
+        if (OFFLINE_CACHE !== key) {
+            await caches.delete(key);
+        }
+    });
+    await Promise.all(checkKeys);
     console.log('Activated!');
 });
 
 self.addEventListener('fetch', event => {
-    event.respondWith(caches.match(event.request)
-        .then(cachedResponse => {
-            return cachedResponse || fetch(event.request)
-        })
-        .catch(() => useFallback()));
+    event.respondWith(checkCache(event.request));
 });
-//
-// function networkOrCache(request) {
-//     return fetch(request)
-//         .then((response) => response.ok ? response : fromCache(request))
-//         .catch(() => fromCache(request));
-// }
 
-// Наш Fallback вместе с нашим собсвенным Динозавриком.
-const FALLBACK =
-    '<div>\n' +
-    '    <div>App Title</div>\n' +
-    '    <div>you are offline</div>\n' +
-    '    <img src="/svg/or/base64/of/your/dinosaur" alt="dinosaur"/>\n' +
-    '</div>';
+async function checkCache(req) {
+    const cachedResp = await caches.match(req);
+    return cachedResp || checkOnline(req);
+}
 
-// Он никогда не упадет, т.к мы всегда отдаем заранее подготовленные данные.
-function useFallback() {
-    return Promise.resolve(new Response(FALLBACK, { headers: {
-            'Content-Type': 'text/html; charset=utf-8'
-        }}));
+async function checkOnline(req) {
+    const cache = await caches.open(DYNAMIC_CACHE);
+    try {
+        const res = await fetch(req);
+        await cache.put(req, res.clone());
+        return res;
+    } catch (error) {
+        return await cache.match(req);
+    }
 }
 
 // function fromCache(request) {
