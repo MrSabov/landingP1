@@ -1,4 +1,4 @@
-const OFFLINE_CACHE = 'offline-cache-v0';
+const OFFLINE_CACHE = 'offline-cache-v1';
 const DYNAMIC_CACHE = 'dynamic-cache-v0';
 
 const staticAssets = [
@@ -6,6 +6,7 @@ const staticAssets = [
     './index.html',
     './icons/icon-128x128.png',
     './icons/icon-192x192.png',
+    './css/style.css',
     './index.js',
 ]
 
