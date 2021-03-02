@@ -1,4 +1,4 @@
-const OFFLINE_CACHE = 'offline-cache-v1';
+const OFFLINE_CACHE = 'offline-cache-v2';
 const DYNAMIC_CACHE = 'dynamic-cache-v0';
 
 const staticAssets = [
