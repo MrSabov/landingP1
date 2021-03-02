@@ -457,3 +457,15 @@ h5.title {
 #footer .social {
 	margin-top: 0;
 }
+
+.offline-warning {
+	position: fixed;
+	bottom: 15px;
+	left: 50%;
+	transform: translate(-50%, 0);
+	width: 80%;
+	text-align: center;
+	background-color: darkorange;
+	border-radius: 6px;
+	padding: 10px;
+}

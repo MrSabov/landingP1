@@ -258,9 +258,45 @@
 			</div>
 		</div>
 
+		<div id="offline-box" class="offline-warning">
+			App is offline.
+		</div>
 	</div>
 
 	<script src="./index.js"></script>
+	<script>
+
+		function initState() {
+			const isOnline = window.navigator.onLine;
+			console.log(isOnline);
+			this.setOnlineStatus(isOnline);
+
+			componentDidMount();
+		}
+
+		function componentDidMount() {
+			window.addEventListener('online', () => this.setOnlineStatus(true));
+			window.addEventListener('offline', () => this.setOnlineStatus(false));
+		}
+
+		function componentWillUnmount() {
+			window.removeEventListener('online');
+			window.removeEventListener('offline');
+		}
+
+		setOnlineStatus = isOnline => {
+			console.log(isOnline);
+			const box = window.document.querySelector('#offline-box');
+
+			if (isOnline) {
+				box.setAttribute('style', 'display: none');
+			} else {
+				box.setAttribute('style', 'display: block');
+			}
+		}
+
+		initState();
+	</script>
 </body>
 </html>
 
