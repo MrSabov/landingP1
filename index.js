@@ -2,13 +2,10 @@
 if ('serviceWorker' in navigator) {
     // Весь код регистрации у нас асинхронный.
     navigator.serviceWorker.register('./sw.js')
-        .then(() => navigator.serviceWorker.ready.then((worker) => {
-            worker.sync.register('syncdata');
-        }))
+        .then(() => navigator.serviceWorker.ready
+            .then((worker) => {
+                console.log(worker);
+                worker.sync.register('syncdata');
+            }))
         .catch((err) => console.log(err));
 }
-
-// .then(reg => {
-//     console.log('Service worker registred', reg)
-// })
-//     .catch((err) => console.log(err));
