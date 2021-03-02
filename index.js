@@ -7,3 +7,8 @@ if ('serviceWorker' in navigator) {
         }))
         .catch((err) => console.log(err));
 }
+
+// .then(reg => {
+//     console.log('Service worker registred', reg)
+// })
+//     .catch((err) => console.log(err));
