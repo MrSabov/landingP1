@@ -1,11 +1,9 @@
-// Проверка того, что наш браузер поддерживает Service Worker API.
+// Перевірка того, що браузер користувача підтримує Service Worker API.
 if ('serviceWorker' in navigator) {
-    // Весь код регистрации у нас асинхронный.
-    navigator.serviceWorker.register('./sw.js')
-        .then(() => navigator.serviceWorker.ready
-            .then((worker) => {
-                console.log(worker);
-                worker.sync.register('syncdata');
-            }))
-        .catch((err) => console.log(err));
+    window.addEventListener('load', function () {
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then(res => console.log('service worker registered', res))
+            .catch(err => console.log('service worker not registered', err))
+    });
 }

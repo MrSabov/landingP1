@@ -1,4 +1,4 @@
-const OFFLINE_CACHE = 'offline-cache-v12';
+const OFFLINE_CACHE = 'offline-cache-v14';
 const DYNAMIC_CACHE = 'dynamic-cache-v1';
 
 const staticAssets = [
@@ -21,8 +21,6 @@ self.addEventListener('activate', async event => {
     const cachesKeys = await caches.keys();
     const checkKeys = cachesKeys.map(async key => {
         if (OFFLINE_CACHE !== key) {
-            console.log(key);
-            console.log(cachesKeys);
             await caches.delete(key);
         }
     });
@@ -31,7 +29,7 @@ self.addEventListener('activate', async event => {
 });
 
 self.addEventListener('fetch', event => {
-    event.respondWith(checkCache(event.request));
+    event.respondWith(checkCache(event.request))
 });
 
 async function checkCache(req) {
@@ -41,6 +39,7 @@ async function checkCache(req) {
 
 async function checkOnline(req) {
     const cache = await caches.open(DYNAMIC_CACHE);
+
     try {
         const res = await fetch(req);
         await cache.put(req, res.clone());
