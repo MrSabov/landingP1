@@ -1,5 +1,5 @@
-const OFFLINE_CACHE = 'offline-cache-v11';
-const DYNAMIC_CACHE = 'dynamic-cache-v0';
+const OFFLINE_CACHE = 'offline-cache-v12';
+const DYNAMIC_CACHE = 'dynamic-cache-v1';
 
 const staticAssets = [
     './',
@@ -21,6 +21,8 @@ self.addEventListener('activate', async event => {
     const cachesKeys = await caches.keys();
     const checkKeys = cachesKeys.map(async key => {
         if (OFFLINE_CACHE !== key) {
+            console.log(key);
+            console.log(cachesKeys);
             await caches.delete(key);
         }
     });
