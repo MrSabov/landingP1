@@ -1,4 +1,4 @@
-const OFFLINE_CACHE = 'offline-cache-v17';
+const OFFLINE_CACHE = 'offline-cache-v18';
 const DYNAMIC_CACHE = 'dynamic-cache-v1';
 
 const staticAssets = [
@@ -99,7 +99,7 @@ function useFallback() {
 }
 
 function fromCache(request) {
-    return caches.open(DYNAMIC_CACHE).then((cache) =>
+    return caches.open(OFFLINE_CACHE).then((cache) =>
         cache.match(request).then((matching) =>
             matching || Promise.reject('no-match')
         ));
