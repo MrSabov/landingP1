@@ -16,12 +16,6 @@ self.addEventListener('install', async event => {
     console.log('Installed!');
 });
 
-// self.addEventListener('install', event => {
-//     event.waitUntil(
-//         caches.open(OFFLINE_CACHE).then(cache => cache.addAll(staticAssets))
-//     )
-// });
-
 self.addEventListener('activate', async event => {
     const cacheNames = await caches.keys();
 
@@ -52,7 +46,7 @@ async function cacheFirst(request) {
 }
 
 async function networkFirst(request) {
-    const cache = await caches.match(DYNAMIC_CACHE);
+    const cache = await caches.open(DYNAMIC_CACHE);
 
     try {
         const response = await fetch(request)
