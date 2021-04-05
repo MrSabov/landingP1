@@ -1,4 +1,4 @@
-const OFFLINE_CACHE = 'offline-cache-v1';
+const OFFLINE_CACHE = 'offline-cache-v2';
 const DYNAMIC_CACHE = 'dynamic-cache-v1';
 
 const staticAssets = [
@@ -49,11 +49,11 @@ async function networkFirst(request) {
     const cache = await caches.open(DYNAMIC_CACHE);
 
     try {
-        const response = await fetch(request)
+        const response = await fetch(request);
         await cache.put(request, response.clone());
-        return response
+        return response;
     } catch (error) {
-        const cached = await cache.match(request)
-        return cached ?? await caches.match('/offline.html')
+        const cached = await cache.match(request);
+        return cached ?? await caches.match('/offline.html');
     }
 }
