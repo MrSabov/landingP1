@@ -182,7 +182,7 @@
         "драма", "щирість", "хімія", "сльози",
         "справжня", "неочікувано", "побачення", "ревнощі",
         "інтрига", "зізнання", "незручно", "токсична",
-        "симпатія", "недооцінюють", "побачення", "маскулінність", "реально"
+        "симпатія", "недооцінюють", "побачення", "маскулінність", "реально", "добрий", "сюрприз", "подарунок"
     ];
     const gridEl = document.getElementById("grid");
     const overlay = document.getElementById("overlay");
@@ -215,8 +215,9 @@
             cell.querySelector(".rose")?.remove();
         } else {
             cell.classList.add("marked");
+            const icons = ["🌹", "💋", "🥂", "🍑"];
             const rose = document.createElement("span");
-            rose.textContent = "🌹";
+            rose.textContent = icons[Math.floor(Math.random() * icons.length)];
             rose.className = "rose";
             cell.appendChild(rose);
         }
