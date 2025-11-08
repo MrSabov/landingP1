@@ -1,286 +1,313 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Холостяк BINGO</title>
   <style>
-      :root {
-          --bg: radial-gradient(circle at top, rgba(255, 75, 122, 1) 0%, rgba(90, 0, 21, 0.85) 40%, rgba(26, 0, 5, 0.85) 100%),
-          url("card-bg.png") no-repeat center / cover;
-          --accent: #f9d18b;
-          --text: #ffeaea;
-      }
+    :root {
+      --bg: radial-gradient(circle at top, rgba(255, 75, 122, 1) 0%, rgba(90, 0, 21, 0.85) 40%, rgba(26, 0, 5, 0.85) 100%),
+      url("card-bg.png") no-repeat center / cover;
+      --accent: #f9d18b;
+      --text: #ffeaea;
+    }
 
-      * { box-sizing: border-box; }
+    * { box-sizing: border-box; }
 
-      body {
-          margin: 0;
-          font-family: system-ui, sans-serif;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 100vh;
-          background: var(--bg);
-          color: var(--text);
-      }
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+    }
 
-      .wrapper {
-          width: min(480px, 95%);
-          border-radius: 20px;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          padding: 20px;
-          text-align: center;
-          position: relative;
-          background: rgba(0, 0, 0, 0.75);
-          backdrop-filter: blur(10px);
-      }
+    .wrapper {
+      width: min(520px, 95%);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      text-align: center;
+      position: relative;
+    }
 
-      h1 {
-          color: var(--accent);
-          letter-spacing: .1em;
-          font-size: 30px;
-          margin-bottom: 8px;
-          text-transform: uppercase;
-      }
+    h1 {
+      color: var(--accent);
+      font-size: 30px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      margin-bottom: 14px;
+    }
 
-      /* 🔹 Плашка правил */
-      .rules {
-          position: absolute;
-          top: 14px;
-          right: 18px;
-          background: rgba(249, 209, 139, 0.1);
-          color: var(--accent);
-          border: 1px solid var(--accent);
-          border-radius: 8px;
-          padding: 2px 10px;
-          font-size: 14px;
-          cursor: pointer;
-          transition: 0.2s;
-      }
-      .rules:hover { background: rgba(249, 209, 139, 0.25); }
+    .grid-wrapper {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 4px;
+      align-items: start;
+    }
 
-      .tooltip {
-          position: absolute;
-          top: 40px;
-          right: 10px;
-          background: rgba(0, 0, 0, 0.9);
-          border: 1px solid var(--accent);
-          border-radius: 10px;
-          padding: 10px;
-          color: #fff;
-          width: 260px;
-          font-size: 13px;
-          text-align: left;
-          opacity: 0;
-          pointer-events: none;
-          transition: opacity 0.25s ease;
-          line-height: 1.3em;
-      }
-      .rules:hover + .tooltip {
-          opacity: 1;
-          pointer-events: auto;
-      }
+    .left-letters {
+      display: grid;
+      grid-template-rows: repeat(5, 1fr);
+      gap: 6px;
+      margin-top: 32px;
+      justify-items: center;
+    }
 
-      .grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 6px;
-          margin-bottom: 16px;
-      }
+    .top-letters {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      margin-left: 32px;
+      justify-items: center;
+      margin-bottom: 6px;
+    }
 
-      .cell {
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 8px;
-          min-height: 60px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 14px;
-          color: rgba(255, 255, 255, 0.6);
-          cursor: pointer;
-          position: relative;
-          text-transform: uppercase;
-          transition: all .2s ease;
-          white-space: normal;
-          overflow-wrap: break-word;
-          word-break: break-word;
-      }
+    .letter {
+      font-size: 20px;
+      color: rgba(255,255,255,0.5);
+      transition: 0.3s;
+    }
+    .letter.active {
+      color: var(--accent);
+      text-shadow: 0 0 8px var(--accent);
+    }
 
-      .cell:hover {
-          background: rgba(255, 255, 255, 0.1);
-      }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 6px;
+    }
 
-      .cell.marked {
-          color: #fff;
-          background: rgba(180, 0, 40, 0.8);
-          filter: blur(1px) brightness(1.3);
-          box-shadow: 0 0 10px rgba(249, 209, 139, 0.6);
-      }
+    .cell {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      position: relative;
+      text-transform: uppercase;
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      transition: all .2s ease;
+    }
 
-      .cell .rose {
-          position: absolute;
-          font-size: 28px;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%) scale(0);
-          animation: popIn 0.25s ease forwards;
-      }
+    .cell:hover { background: rgba(255,255,255,0.12); }
 
-      @keyframes popIn {
-          to { transform: translate(-50%, -50%) scale(1); }
-      }
+    .cell.marked {
+      color: #fff;
+      background: rgba(180, 0, 40, 0.8);
+      filter: blur(1px) brightness(1.3);
+      box-shadow: 0 0 10px rgba(249,209,139,0.6);
+    }
 
-      button {
-          background: linear-gradient(135deg, rgba(249,209,139,0.15), rgba(249,209,139,0.05));
-          border: 1px solid var(--accent);
-          color: var(--accent);
-          border-radius: 999px;
-          padding: 8px 18px;
-          text-transform: uppercase;
-          font-weight: 600;
-          letter-spacing: .05em;
-          cursor: pointer;
-          transition: .2s;
-      }
+    .cell .rose {
+      position: absolute;
+      font-size: 26px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%) scale(0);
+      animation: popIn .25s ease forwards;
+    }
 
-      button:hover {
-          background: var(--accent);
-          color: #400;
-      }
+    @keyframes popIn {
+      to { transform: translate(-50%,-50%) scale(1); }
+    }
 
-      .bingo-overlay {
-          position: fixed;
-          inset: 0;
-          background: rgba(0, 0, 0, 0.85);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-direction: column;
-          z-index: 999;
-          opacity: 0;
-          pointer-events: none;
-          transition: opacity .5s ease;
-      }
+    button {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 8px 18px;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: .05em;
+      cursor: pointer;
+      transition: .2s;
+    }
+    button:hover { background: var(--accent); color: #400; }
 
-      .bingo-overlay.active {
-          opacity: 1;
-          pointer-events: all;
-      }
+    .bingo-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .5s ease;
+    }
 
-      .bingo-text {
-          font-size: 64px;
-          color: var(--accent);
-          animation: pop 0.9s ease-out infinite alternate;
-          text-shadow: 0 0 20px var(--accent);
-      }
+    .bingo-overlay.active { opacity: 1; pointer-events: all; }
 
-      @keyframes pop {
-          from { transform: scale(1); }
-          to { transform: scale(1.1); }
-      }
+    .bingo-text {
+      font-size: 64px;
+      color: var(--accent);
+      animation: pop 0.9s ease-out infinite alternate;
+      text-shadow: 0 0 20px var(--accent);
+    }
 
-      .restart-btn {
-          margin-top: 24px;
-          background: var(--accent);
-          color: #3b0010;
-          border: none;
-          border-radius: 30px;
-          padding: 10px 24px;
-          font-weight: 600;
-          cursor: pointer;
-          font-size: 14px;
-      }
+    @keyframes pop { from {transform:scale(1);} to {transform:scale(1.1);} }
 
-      .restart-btn:hover { filter: brightness(1.1); }
+    .restart-btn {
+      margin-top: 24px;
+      background: var(--accent);
+      color: #3b0010;
+      border: none;
+      border-radius: 30px;
+      padding: 10px 24px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .restart-btn:hover { filter: brightness(1.1); }
+
   </style>
 </head>
 <body>
 <div class="wrapper">
-  <h1>Холостяк BINGO 🥂</h1>
-  <div class="rules">Правила ℹ️</div>
-  <div class="tooltip">
-      🎯 <b>Мета гри:</b> Позначай клітинки, коли чуєш або бачиш слово з шоу.<br><br>
-      🏁 <b>Як виграти:</b> Перший, хто заповнить ряд, стовпець або діагональ — кричить “БІНГО!”.<br><br>
-      🌹 <b>Порада:</b> Додай бокал вина і добрий настрій — це частина гри 🍷
+  <h1>Холостяк BINGO 🌹</h1>
+
+  <div class="grid-wrapper">
+    <div class="left-letters" id="leftLetters">
+      <div class="letter">B</div>
+      <div class="letter">I</div>
+      <div class="letter">N</div>
+      <div class="letter">G</div>
+      <div class="letter">O</div>
+    </div>
+
+    <div>
+      <div class="top-letters" id="topLetters">
+        <div class="letter">B</div>
+        <div class="letter">I</div>
+        <div class="letter">N</div>
+        <div class="letter">G</div>
+        <div class="letter">O</div>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
   </div>
 
-  <div class="grid" id="grid"></div>
   <button id="new">Нова картка</button>
 </div>
 
 <div class="bingo-overlay" id="overlay">
-  <div class="bingo-text">BINGO! 🌹</div>
+  <div class="bingo-text">BINGO! 🥂</div>
   <button class="restart-btn" id="restart">Почати знову</button>
 </div>
 
 <script>
-    const WORDS = [
-        "опа","прикольно","безкомпромісна","ініціатива",
-        "круто","відкрита","підстава","мужній",
-        "троянда","емоції","ідеальний","конкуренція",
-        "драма","щирість","хімія","сльози",
-        "справжня","неочікувано","побачення","ревнощі",
-        "інтрига","зізнання","незручно","токсична",
-        "симпатія","маскулінність","реально","добрий","сюрприз","подарунок"
-    ];
+const WORDS = [
+  "опа","прикольно","безкомпромісна","ініціатива",
+  "круто","відкрита","підстава","мужній",
+  "троянда","емоції","ідеальний","конкуренція",
+  "драма","щирість","хімія","сльози",
+  "справжня","неочікувано","побачення","ревнощі",
+  "інтрига","зізнання","незручно","токсична",
+  "симпатія","маскулінність","реально","добрий","сюрприз","подарунок"
+];
 
-    const gridEl = document.getElementById("grid");
-    const overlay = document.getElementById("overlay");
-    const restart = document.getElementById("restart");
+const gridEl = document.getElementById("grid");
+const overlay = document.getElementById("overlay");
+const restart = document.getElementById("restart");
+const topLetters = document.querySelectorAll("#topLetters .letter");
+const leftLetters = document.querySelectorAll("#leftLetters .letter");
 
-    function shuffle(arr) {
-        const a = arr.slice();
-        for (let i = a.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [a[i], a[j]] = [a[j], a[i]];
-        }
-        return a;
+function shuffle(arr){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function generateCard(){
+  const chosen=shuffle(WORDS).slice(0,16);
+  gridEl.innerHTML="";
+  chosen.forEach((word,i)=>{
+    const div=document.createElement("div");
+    div.className="cell";
+    div.textContent=word;
+    div.dataset.row=Math.floor(i/4);
+    div.dataset.col=i%4;
+    div.addEventListener("click",()=>toggle(div));
+    gridEl.appendChild(div);
+  });
+  resetLetters();
+}
+
+function toggle(cell){
+  if(cell.classList.contains("marked")){
+    cell.classList.remove("marked");
+    cell.querySelector(".rose")?.remove();
+  } else {
+    cell.classList.add("marked");
+    const icons=["🌹","🍓","💋","🥂","🔥"];
+    const rose=document.createElement("span");
+    rose.textContent=icons[Math.floor(Math.random()*icons.length)];
+    rose.className="rose";
+    cell.appendChild(rose);
+  }
+  checkLines();
+}
+
+function resetLetters(){
+  [...topLetters,...leftLetters].forEach(l=>l.classList.remove("active"));
+}
+
+function checkLines(){
+  const cells=[...document.querySelectorAll(".cell")];
+  const marked=cells.map(c=>c.classList.contains("marked")?1:0);
+  const size=4;
+
+  let bingo=false;
+
+  // перевірка рядків і колонок
+  for(let i=0;i<size;i++){
+    const row=marked.slice(i*size,i*size+size);
+    const col=marked.filter((_,idx)=>idx%size===i);
+    if(row.every(Boolean)){
+      leftLetters[i+1]?.classList.add("active");
+      bingo=true;
     }
-
-    function generateCard() {
-        const chosen = shuffle(WORDS).slice(0, 16);
-        gridEl.innerHTML = "";
-        chosen.forEach(word => {
-            const div = document.createElement("div");
-            div.className = "cell";
-            div.textContent = word;
-            div.addEventListener("click", () => toggle(div));
-            gridEl.appendChild(div);
-        });
+    if(col.every(Boolean)){
+      topLetters[i+1]?.classList.add("active");
+      bingo=true;
     }
+  }
 
-    function toggle(cell) {
-        if (cell.classList.contains("marked")) {
-            cell.classList.remove("marked");
-            cell.querySelector(".rose")?.remove();
-        } else {
-            cell.classList.add("marked");
-            const icons = ["🌹", "🍓", "💋", "🥂", "🔥"];
-            const rose = document.createElement("span");
-            rose.textContent = icons[Math.floor(Math.random() * icons.length)];
-            rose.className = "rose";
-            cell.appendChild(rose);
-        }
-        checkBingo();
-    }
+  // перевірка діагоналей
+  const diag1=[0,5,10,15].map(i=>marked[i]);
+  const diag2=[3,6,9,12].map(i=>marked[i]);
+  if(diag1.every(Boolean)||diag2.every(Boolean)) bingo=true;
 
-    function checkBingo() {
-        const cells = document.querySelectorAll(".cell");
-        const allMarked = [...cells].every(c => c.classList.contains("marked"));
-        if (allMarked) {
-            overlay.classList.add("active");
-        }
-    }
+  if(bingo) overlay.classList.add("active");
+}
 
-    document.getElementById("new").addEventListener("click", generateCard);
-    restart.addEventListener("click", () => {
-        overlay.classList.remove("active");
-        generateCard();
-    });
-
-    generateCard();
+document.getElementById("new").addEventListener("click",generateCard);
+restart.addEventListener("click",()=>{
+  overlay.classList.remove("active");
+  generateCard();
+});
+generateCard();
 </script>
 </body>
 </html>
